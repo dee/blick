@@ -1,0 +1,11 @@
+[package]
+name = "blick"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+qmetaobject = "0.2.10"
+# iepub = { git = "https://github.com/dee/iepub" }
+iepub = { path = "../iepub/lib" }
+cstr = "0.2.12"
+log = "0.4.29"
