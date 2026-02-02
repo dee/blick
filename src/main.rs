@@ -54,27 +54,6 @@ impl EpubModel {
         }
     }
 
-    /*
-    fn load_chapter_internal(&mut self, index: usize) {
-        match &self.epub {
-            Some(e) => {
-                println!("Loading chapter number {}", index);
-                match e.chapters().nth(index) {
-                    Some(chapter) => {
-                        //println!("{:#?}", chapter);
-                        let mut clone_chapter = chapter.clone();
-                        let chapter_data = clone_chapter.string_data();
-                        println!("Read string: {} characters", chapter_data.len());
-                        self.current_content = QString::from(chapter_data);
-                        //self.content_changed();
-                    },
-                    None => { println!("Failed to get a chapter!"); }
-                }
-            },
-            None => {}
-        }
-    }
-    */
     pub fn load_chapter_internal(&mut self, index: usize) -> Result<String, ()> {
         match &self.epub {
             Some(e) => {
