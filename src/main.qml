@@ -59,10 +59,11 @@ ApplicationWindow {
             SplitView.fillWidth: true
             TextArea {
                 id: chapterText
-                text: epubModel.current_content
+                text: epubModel.current_content || ""
                 readOnly: true
                 textFormat: TextEdit.RichText
                 wrapMode: Text.WordWrap
+                font.pixelSize: epubModel.font_size
             }
         }
     }

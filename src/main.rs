@@ -5,16 +5,21 @@ use iepub::prelude::*;
 use qmetaobject::*;
 use cstr::cstr;
 use std::env::args;
+use std::ffi::c_int;
+use std::path::PathBuf;
 use ::log::debug;
 use qmetaobject::*;
+use clap::{Arg, Command, ArgAction};
 
 #[derive(QObject, Default)]
 struct EpubModel {
     base: qt_base_class!(trait QObject),
     chapters: qt_property!(QVariantList; NOTIFY chapters_changed),
     current_content: qt_property!(QString; NOTIFY content_changed),
+    font_size: qt_property!(i16; NOTIFY font_size_changed),
     chapters_changed: qt_signal!(),
     content_changed: qt_signal!(),
+    font_size_changed: qt_signal!(),
     epub: Option<EpubBook>,
 
     load_chapter: qt_method!(fn load_chapter(&mut self, index: usize) {
@@ -79,16 +84,39 @@ impl EpubModel {
 }
 
 fn main() {
-    let args: Vec<String> = args().collect();
-    if args.len() == 1 {
-        println!("File name is not specified.");
-        return;
-    }
+    let matches = clap::Command::new("blick")
+        .version("0.1.0")
+        .arg(
+            Arg::new("filename").required(true)
+                .value_parser(clap::value_parser!(PathBuf))
+        )
+        .arg(
+            Arg::new("fontsize")
+                .long("fontsize")
+                .short('f')
+                .value_parser(clap::value_parser!(u16))
+                .help("Main text font pixel size")
+        )
+        .get_matches();
+
+    let filename: &PathBuf = matches
+        .get_one::<PathBuf>("filename")
+        .expect("Required filename missing");
 
     let mut model = EpubModel::default();
-    model.load_epub(args[1].clone());
-    let obj_box = QObjectBox::new(model);
+    model.load_epub(String::from(filename.to_str().unwrap()));
+    if matches.contains_id("fontsize") {
+        match matches.get_one::<u16>("fontsize") {
+            Some(font_size) => {
+                model.font_size = *font_size as i16; 
+            },
+            None => {
+                println!("Failed to set font pixel size");
+            }
+        }
+    }
 
+    let obj_box = QObjectBox::new(model);
     qml_register_type::<EpubModel>(cstr!("EpubViewer"), 1, 0, cstr!("EpubModel"));
     let mut engine = QmlEngine::new();
     engine.set_property("epubModel".into(), obj_box.pinned().into());
