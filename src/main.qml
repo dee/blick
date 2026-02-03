@@ -25,14 +25,16 @@ ApplicationWindow {
             anchors.fill: parent
             spacing: 2
             BlickToolButton {
-                icon.source: "data:image/svg+xml;utf8," + icons.zoom_in_icon
+                icon.name: Qt.platform.os === "osx" ? "plus.magnifyingglass" : "";
+                icon.source: Qt.platform.os === "osx" ? "" : "data:image/svg+xml;utf8," + icons.zoom_in_icon
                 onClicked: {
                     chapterText.font.pixelSize += 4
                     console.debug("New font pixel size is ", chapterText.font.pixelSize)
                 }
             }
             BlickToolButton {
-                icon.source: "data:image/svg+xml;utf8," + icons.zoom_out_icon
+                icon.name: Qt.platform.os === "osx" ? "minus.magnifyingglass" : "";
+                icon.source: Qt.platform.os === "osx" ? "" : "data:image/svg+xml;utf8," + icons.zoom_out_icon
                 onClicked: {
                     chapterText.font.pixelSize -= 4
                     console.debug("New font pixel size is ", chapterText.font.pixelSize)
