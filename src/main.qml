@@ -9,10 +9,20 @@ ApplicationWindow {
     width: 1000
     height: 600
     title: "Blick"
-    Material.theme: Material.Dark
-    Material.accent: Material.Blue
 
     IconProvider { id: icons }
+
+    readonly property bool systemDarkMode: {
+        if (Qt.platform.os === "osx") {
+            return palette.window.hsvValue < 0.5
+        }
+        return palette.window.hsvValue < 0.5
+    }
+    property bool darkMode: systemDarkMode
+    property bool autoTheme: true  // shall i follow the theme?
+    Material.theme: (autoTheme ? systemDarkMode : darkMode) ? Material.Dark : Material.Light
+    Material.accent: (autoTheme ? systemDarkMode : darkMode) ? Material.Green : Material.Blue
+    //TODO: recolor icons
 
     component BlickToolButton: ToolButton {
         icon.width: 24
