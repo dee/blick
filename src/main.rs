@@ -1,6 +1,8 @@
 #![allow(unused_imports)]
 #![allow(dead_code)]
 
+mod icons;
+
 use iepub::prelude::*;
 use qmetaobject::*;
 use cstr::cstr;
@@ -116,6 +118,7 @@ fn main() {
         }
     }
 
+    qml_register_type::<icons::IconProvider>(cstr!("EpubViewer"), 1, 0, cstr!("IconProvider"));
     let obj_box = QObjectBox::new(model);
     qml_register_type::<EpubModel>(cstr!("EpubViewer"), 1, 0, cstr!("EpubModel"));
     let mut engine = QmlEngine::new();

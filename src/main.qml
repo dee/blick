@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls.Material
+import EpubViewer
 
 ApplicationWindow {
     visible: true
@@ -10,6 +11,8 @@ ApplicationWindow {
     title: "Blick"
     Material.theme: Material.Dark
     Material.accent: Material.Blue
+
+    IconProvider { id: icons }
 
     component BlickToolButton: ToolButton {
         icon.width: 24
@@ -22,14 +25,14 @@ ApplicationWindow {
             anchors.fill: parent
             spacing: 2
             BlickToolButton {
-                icon.source: "icons/zoom-in.png"
+                icon.source: "data:image/svg+xml;utf8," + icons.zoom_in_icon
                 onClicked: {
                     chapterText.font.pixelSize += 4
                     console.debug("New font pixel size is ", chapterText.font.pixelSize)
                 }
             }
             BlickToolButton {
-                icon.source: "icons/zoom-out.png"
+                icon.source: "data:image/svg+xml;utf8," + icons.zoom_out_icon
                 onClicked: {
                     chapterText.font.pixelSize -= 4
                     console.debug("New font pixel size is ", chapterText.font.pixelSize)
