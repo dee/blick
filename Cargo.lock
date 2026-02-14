@@ -385,7 +385,8 @@ dependencies = [
 
 [[package]]
 name = "iepub"
-version = "1.3.0"
+version = "1.3.1"
+source = "git+https://github.com/dee/iepub#01e826ce5b85740ac62368dd39a9850533f45caa"
 dependencies = [
  "anyhow",
  "iepub-derive",
@@ -395,7 +396,8 @@ dependencies = [
 
 [[package]]
 name = "iepub-derive"
-version = "1.3.0"
+version = "1.3.1"
+source = "git+https://github.com/dee/iepub#01e826ce5b85740ac62368dd39a9850533f45caa"
 
 [[package]]
 name = "indexmap"
@@ -586,9 +588,9 @@ dependencies = [
 
 [[package]]
 name = "quick-xml"
-version = "0.38.4"
+version = "0.39.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b66c2058c55a409d601666cffe35f04333cf1013010882cec174a7467cd4e21c"
+checksum = "f2e3bf4aa9d243beeb01a7b3bc30b77cfe2c44e24ec02d751a7104a53c2c49a1"
 dependencies = [
  "memchr",
 ]
