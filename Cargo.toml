@@ -1,3 +1,4 @@
+cargo-features=["edition2024"]
 [package]
 name = "blick"
 version = "0.1.0"
